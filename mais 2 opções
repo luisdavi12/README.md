@@ -1,0 +1,119 @@
+# README.md
+projeto com varias opções
+#################################################
+############### BY LUIS DAVI #####################
+#################################################
+print("olá, em que posso ajuda?")
+print("opções do que eu posso fazer:")
+print("[ 1 ] ver tabuada de um numero")
+print("[ 2 ] velocidade media de um carro")
+print("[ 3 ] calcular a hipotenusa")
+print("[ 4 ] calcular quantos litros de tinta usar em uma parede")
+print("[ 5 ] quantos garrafões de água comprar por semana")
+print("[ 6 ] jogos ")
+op = int(input("qual das opções acima você quer que eu execute: ")) #op significa opções
+if op == 1:
+    tb = int(input(" de que numero você deseja ver a tabuada? ")) #tb significa tabuada
+    print("------------------------")
+    print(" {} x {} = {}".format(tb, 1, tb*1))
+    print(" {} x {} = {}".format(tb, 2, tb*2))
+    print(" {} x {} = {}".format(tb, 3, tb*3))
+    print(" {} x {} = {}".format(tb, 4, tb*4))
+    print(" {} x {} = {}".format(tb, 5, tb*5))
+    print(" {} x {} = {}".format(tb, 6, tb*6))
+    print(" {} x {} = {}".format(tb, 7, tb*7))
+    print(" {} x {} = {}".format(tb, 8, tb*8))
+    print(" {} x {} = {}".format(tb, 9, tb*9))
+    print(" {} x {} = {}".format(tb, 10, tb*10))
+    print("------------------------")
+if op == 2:
+    dis = int(input("qual a distancia percorrida pelo carro? "))
+    tmp = float(input("quanto tempo o carro levou para percorrer a distancia? "))
+    vm = dis/tmp
+    print(" ")
+    print("a velocidade media do objeto foi de {:.0f}km/h".format(vm))
+    print(" ")
+if op == 3:
+    a = float(input("digite o valor do cateto opostto: "))
+    b = float(input("digite o valor do cateto adiacente: "))
+    c = (a ** 2 + b** 2) ** (1/2)
+    print(" a hipotenusa vai medir {:.2f}".format(c))
+if op == 4:
+    la = float(input("largura da parede: "))#la = largura
+    alt = float(input("altura da parede: "))#alt = altura
+    area = (la * alt)#area = altura multiplicado pela largura
+    LT = (la * alt) / 2#LT = litros
+    print("a parede tem uma area de {:.2f}m e você ira precisar de {:.1f} de tinta".format(area, LT))
+if op == 5:
+    qtd = int(input("quantas pessoa moram em sua casa? "))
+    ltd = 0.035 * 65
+    lts = (ltd * 7) * qtd / 20
+    print("para {} pessoas necessario comprar {:.0f} garrafões de água por semana".format(qtd, lts))
+if op == 6:
+    from random import randint
+
+def imprimirTabuleiro():
+  print (tabuleiro[0] + " | " + tabuleiro[1]  + " | " + tabuleiro[2])
+  print ("‾‾‾‾‾‾‾‾‾")
+  print (tabuleiro[3] + " | " + tabuleiro[4]  + " | " + tabuleiro[5])
+  print ("‾‾‾‾‾‾‾‾‾")
+  print (tabuleiro[6] + " | " + tabuleiro[7]  + " | " + tabuleiro[8])
+
+def jogarNovamente():
+  resposta = input('Digite "S" para jogar novamente: ')
+  if (resposta.lower() != "s"):
+    return False
+  else:
+    return True
+
+def checaVencedor():
+  for combinacao in condicoesVitoria:
+    if ((tabuleiro[combinacao[0]] == tabuleiro[combinacao[1]]) and (tabuleiro[combinacao[1]] == tabuleiro[combinacao[2]])):
+      for j in jogador:
+        if (j["simbolo"] == tabuleiro[combinacao[0]]):
+          j["vitorias"] += 1
+          print(j["nome"] + "(" + j["simbolo"] + ") foi a vencedor (Vitórias: " + str(j["vitorias"]) + ")")
+          return True
+  return False
+
+condicoesVitoria = ([0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6])
+jogador = [{"nome":"","vitorias":0,"simbolo":"X","turno":False},{"nome":"","vitorias":0,"simbolo":"O","turno":False}]
+jogador[0]["nome"] = input('Digite o nome do jogador 1 (X):')
+jogador[1]["nome"] = input('Digite o nome do jogador 2 (O):')
+
+while True:
+  rodada = 0
+  tabuleiro = ["1","2","3","4","5","6","7","8","9"]
+  print('----------- Jogo da velha -----------')
+  if (randint(0,1) == 0):
+    jogador[0]["turno"] = True
+    print (jogador[0]["nome"] + " começa jogando!")
+  else:
+    jogador[1]["turno"] = True
+    print (jogador[1]["nome"] + " começa jogando!")
+
+  imprimirTabuleiro()
+
+  while rodada <= 8:
+    for j in jogador:
+      if (j["turno"] is True):
+        while True:
+          jogada = input(j['nome'] + ", digite uma posição para " + j['simbolo'] + " :")
+          if ((jogada in tabuleiro ) and (jogada not in ("X","x","o","O"))):
+            break
+          else:
+            print ('Digite uma jogada válida!')
+        tabuleiro[int(jogada) - 1] = j['simbolo']
+        j['turno'] = False
+        imprimirTabuleiro()
+      else:
+        j['turno'] = True
+    if((rodada >= 4) and (checaVencedor())):
+      break
+    else:
+      rodada += 1
+  if(not(jogarNovamente())):
+    break
+if op >= 7:
+    print("digite uma opcão valida")
+    
